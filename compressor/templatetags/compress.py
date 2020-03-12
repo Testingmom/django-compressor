@@ -63,7 +63,7 @@ class CompressorMixin(object):
         and return the result if given
         """
         original_content = self.get_original_content(context)
-        if settings.COMPRESS_CSP_NONCE:
+        if settings.COMPRESS_CSP_NONCE and 'request' in context:
             original_content = original_content.replace(str(context['request'].csp_nonce), '')
         key = get_offline_hexdigest(original_content)
         offline_manifest = get_offline_manifest()
